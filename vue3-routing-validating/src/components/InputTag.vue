@@ -1,7 +1,7 @@
 <template>
   <div>
     <label :for="props.name">{{ props.labelName }}</label>
-    <input v-model="value" :type="props.type" :name="props.name" />
+    <input v-model="inputValue" :type="props.type" :name="props.name" />
     <p>{{ errorMessage }}</p>
   </div>
 </template>
@@ -11,7 +11,7 @@ https://reffect.co.jp/vue/veevaliate4
  -->
 
 <script setup lang="ts">
-import { useField } from "vee-validate";
+import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 
 const props = defineProps({
@@ -20,10 +20,20 @@ const props = defineProps({
   name: String,
 });
 
-const { errorMessage, value } = useField(
-  "fieldName",
-  yup.string().required().min(6)
-);
+const schema = yup.object({
+  name: yup.string().required("必須項目です。"),
+  password: yup.string().required().min(6),
+});
+
+useForm({
+  validationSchema: schema,
+});
+
+const { errorMessage: nameError, value: name } = useField("name");
+const { errorMessage: passwordError, value: password } = useField("password");
+
+const inputValue = props.name === "name" ? name : password;
+const errorMessage = props.name === "name" ? nameError : passwordError;
 </script>
 
 <style scoped>

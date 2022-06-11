@@ -1,13 +1,11 @@
 <template>
   <h2 class="title">Validation using Vee-Validate</h2>
-  <!-- <useForm> -->
   <InputTag labelName="ユーザー名" type="text" name="name" />
   <InputTag labelName="パスワード" type="password" name="password" />
 
   <div class="btn">
     <button type="submit">Submit</button>
   </div>
-  <!-- </useForm> -->
 </template>
 
 <!-- vee-validateについて
@@ -18,7 +16,6 @@ https://reffect.co.jp/vue/veevaliate4
 <!-- https://tekrog.com/vue3-script-setup/ -->
 
 <script setup lang="ts">
-import { useForm } from "vee-validate";
 import InputTag from "../components/InputTag.vue";
 </script>
 
