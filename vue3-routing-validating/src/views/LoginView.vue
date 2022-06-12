@@ -1,11 +1,13 @@
 <template>
   <h2 class="title">Validation using Vee-Validate</h2>
-  <InputTag labelName="ユーザー名" type="text" name="name" />
-  <InputTag labelName="パスワード" type="password" name="password" />
+  <form action="" @click.prevent="handleSubmit()">
+    <InputTag labelName="ユーザー名" type="text" name="name" />
+    <InputTag labelName="パスワード" type="password" name="password" />
 
-  <div class="btn">
-    <button type="submit">Submit</button>
-  </div>
+    <div class="btn">
+      <button type="submit">ログイン</button>
+    </div>
+  </form>
 </template>
 
 <!-- vee-validateについて
@@ -17,6 +19,10 @@ https://reffect.co.jp/vue/veevaliate4
 
 <script setup lang="ts">
 import InputTag from "../components/InputTag.vue";
+
+const handleSubmit = () => {
+  console.log("Vue3");
+};
 </script>
 
 <style scoped>
@@ -26,16 +32,13 @@ h2 {
 }
 form {
   margin: 50px 0;
-  font-size: 1.3rem;
-  text-align: center;
-}
-.btn {
+  font-size: 20px;
   text-align: center;
 }
 button {
   width: 70px;
   height: 25px;
   margin-top: 50px;
-  font-size: 90%;
+  font-size: 60%;
 }
 </style>

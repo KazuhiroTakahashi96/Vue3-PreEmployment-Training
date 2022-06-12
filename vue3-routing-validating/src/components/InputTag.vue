@@ -2,7 +2,7 @@
   <div>
     <label :for="props.name">{{ props.labelName }}</label>
     <input v-model="inputValue" :type="props.type" :name="props.name" />
-    <p>{{ errorMessage }}</p>
+    <p>{{ errorMsg }}</p>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ const props = defineProps({
 
 const schema = yup.object({
   name: yup.string().required("必須項目です。"),
-  password: yup.string().required().min(6),
+  password: yup.string().required().min(6, "パスワードは6文字以上です。"),
 });
 
 useForm({
@@ -33,13 +33,13 @@ const { errorMessage: nameError, value: name } = useField("name");
 const { errorMessage: passwordError, value: password } = useField("password");
 
 const inputValue = props.name === "name" ? name : password;
-const errorMessage = props.name === "name" ? nameError : passwordError;
+const errorMsg = props.name === "name" ? nameError : passwordError;
 </script>
 
 <style scoped>
 div {
-  margin-top: 50px;
-  height: 10vh;
+  margin: 50px;
+  height: 5vh;
   text-align: center;
 }
 label {
@@ -49,10 +49,11 @@ label {
 input {
   width: 200px;
   height: 30px;
+  font-size: 20px;
 }
 p {
-  margin-top: 10px;
+  margin: 15px;
   color: red;
-  font-size: 20px;
+  font-size: 15px;
 }
 </style>
