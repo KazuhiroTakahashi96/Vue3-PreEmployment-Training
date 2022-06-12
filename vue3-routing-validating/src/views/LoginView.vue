@@ -1,8 +1,17 @@
 <template>
   <h2 class="title">Validation using Vee-Validate</h2>
-  <form action="" @click.prevent="">
-    <InputTag labelName="ユーザー名" type="text" name="name" />
-    <InputTag labelName="パスワード" type="password" name="password" />
+  <form action="" @click.prevent="handleSubmit">
+    <div class="input">
+      <label for="name">ユーザー名</label>
+      <input type="text" name="name" v-model="name" />
+      <p>{{ nameError }}</p>
+    </div>
+
+    <div class="input">
+      <label for="password">パスワード</label>
+      <input type="password" name="password" v-model="password" />
+      <p>{{ passwordError }}</p>
+    </div>
 
     <div class="btn">
       <button type="submit">
@@ -20,8 +29,24 @@ https://reffect.co.jp/vue/veevaliate4
 <!-- https://tekrog.com/vue3-script-setup/ -->
 
 <script setup lang="ts">
-import InputTag from "../components/InputTag.vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
+import { useField, useForm } from "vee-validate";
+import * as yup from "yup";
+
+// バリデーション処理
+const schema = yup.object({
+  name: yup.string().required("必須項目です。"),
+  password: yup.string().required().min(6, "パスワードは6文字以上です。"),
+});
+useForm({
+  validationSchema: schema,
+});
+const { errorMessage: nameError, value: name } = useField("name");
+const { errorMessage: passwordError, value: password } = useField("password");
+
+const handleSubmit = () => {
+  console.log(name.value, password.value);
+};
 </script>
 
 <style scoped>
@@ -33,6 +58,24 @@ form {
   margin: 50px 0;
   font-size: 20px;
   text-align: center;
+}
+.input {
+  margin: 60px;
+  height: 5vh;
+}
+label {
+  margin-right: 20px;
+  color: #fff;
+}
+input {
+  width: 200px;
+  height: 30px;
+  font-size: 20px;
+}
+p {
+  margin: 15px;
+  color: red;
+  font-size: 15px;
 }
 button {
   width: 70px;
