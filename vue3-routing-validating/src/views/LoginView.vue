@@ -1,11 +1,13 @@
 <template>
   <h2 class="title">Validation using Vee-Validate</h2>
-  <form action="" @click.prevent="handleSubmit()">
+  <form action="" @click.prevent="">
     <InputTag labelName="ユーザー名" type="text" name="name" />
     <InputTag labelName="パスワード" type="password" name="password" />
 
     <div class="btn">
-      <button type="submit">ログイン</button>
+      <button type="submit">
+        <RouterLink to="admin">ログイン </RouterLink>
+      </button>
     </div>
   </form>
 </template>
@@ -19,10 +21,7 @@ https://reffect.co.jp/vue/veevaliate4
 
 <script setup lang="ts">
 import InputTag from "../components/InputTag.vue";
-
-const handleSubmit = () => {
-  console.log("Vue3");
-};
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <style scoped>

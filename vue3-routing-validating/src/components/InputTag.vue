@@ -20,6 +20,13 @@ const props = defineProps({
   name: String,
 });
 
+// inputValueを親要素に送る
+// const emit = defineEmits(["inputValue"]);
+// const value = () => {
+//   emit("inputValue", inputValue);
+// };
+
+// バリデーション処理
 const schema = yup.object({
   name: yup.string().required("必須項目です。"),
   password: yup.string().required().min(6, "パスワードは6文字以上です。"),
