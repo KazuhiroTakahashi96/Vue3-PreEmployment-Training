@@ -22,7 +22,6 @@ const router = createRouter({
       name: "admin",
       component: () => import("../views/AdminView.vue"),
     },
-
     {
       path: "/product",
       name: "product",
@@ -32,6 +31,11 @@ const router = createRouter({
       path: "/payment",
       name: "payment",
       component: () => import("../views/PaymentView.vue"),
+    },
+    {
+      path: "/payment/Completed",
+      name: "paymentCompleted",
+      component: () => import("../views/PaymentCompletedView.vue"),
     },
   ],
 });

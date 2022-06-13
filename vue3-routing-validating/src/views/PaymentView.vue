@@ -49,10 +49,16 @@
       <input type="text" name="card" placeholder="名義人" />
       <input type="text" name="card" placeholder="裏面の3桁の番号" />
     </div>
+    <div>
+      <RouterLink to="/payment/completed">
+        <button type="button">決済</button>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 
@@ -90,12 +96,9 @@ h2 {
 }
 .container {
   text-align: center;
-  height: 90vh;
-  width: 90vw;
 }
 .container > div {
-  /* margin: 30px; */
-  height: 10vh;
+  margin: 20px;
 }
 label {
   margin: 0 10px;
@@ -103,12 +106,16 @@ label {
 }
 input {
   margin: 10px;
-  width: 60%;
+  width: 55%;
   height: 25px;
 }
 p {
   margin: 5px;
   color: red;
   font-size: 15px;
+}
+button {
+  margin: 30px;
+  width: 60px;
 }
 </style>
