@@ -1,6 +1,6 @@
 <template>
   <h2 class="title">Validation using Vee-Validate</h2>
-  <form action="" @click.prevent="handleSubmit">
+  <form action="">
     <div class="input">
       <label for="name">ユーザー名</label>
       <input type="text" name="name" v-model="name" />
@@ -14,9 +14,9 @@
     </div>
 
     <div class="btn">
-      <button type="submit">
-        <RouterLink to="admin">ログイン </RouterLink>
-      </button>
+      <RouterLink to="/admin">
+        <button type="submit" @click="onClick">ログイン</button>
+      </RouterLink>
     </div>
   </form>
 </template>
@@ -33,6 +33,10 @@ import { RouterLink } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 
+const onClick = () => {
+  console.log(name.value, password.value);
+};
+
 // バリデーション処理
 const schema = yup.object({
   name: yup.string().required("必須項目です。"),
@@ -43,10 +47,6 @@ useForm({
 });
 const { errorMessage: nameError, value: name } = useField("name");
 const { errorMessage: passwordError, value: password } = useField("password");
-
-const handleSubmit = () => {
-  console.log(name.value, password.value);
-};
 </script>
 
 <style scoped>
