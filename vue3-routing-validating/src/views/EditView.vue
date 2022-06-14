@@ -8,6 +8,7 @@
       <th class="itemName">商品名</th>
       <th class="price">値段</th>
       <th class="detail">詳細</th>
+      <th class="stock">在庫数</th>
       <th class="delete">削除</th>
     </tr>
     <editItem></editItem>
@@ -36,7 +37,7 @@ td {
   border: 1px solid;
 }
 .itemId {
-  width: 10%;
+  width: 7%;
 }
 .itemName {
   width: 30%;
@@ -45,7 +46,10 @@ td {
   width: 10%;
 }
 .detail {
-  width: 40%;
+  width: 35%;
+}
+.stock {
+  width: 8%;
 }
 .delete {
   width: 10%;

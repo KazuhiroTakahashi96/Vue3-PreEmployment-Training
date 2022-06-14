@@ -9,6 +9,7 @@
       />
       <input type="number" name="price" class="price" placeholder="値段" />
       <input type="text" name="detail" class="detail" placeholder="詳細" />
+      <input type="number" name="stock" class="stock" placeholder="在庫数" />
       <input type="button" value="追加" class="addBtn" @click="onSubmit" />
     </form>
   </div>
@@ -38,7 +39,10 @@ input {
   width: 10%;
 }
 .detail {
-  width: 40%;
+  width: 35%;
+}
+.stock {
+  width: 10%;
 }
 .addBtn {
   width: 5%;

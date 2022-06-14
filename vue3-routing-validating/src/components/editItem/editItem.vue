@@ -4,6 +4,7 @@
     <td>22</td>
     <td>33</td>
     <td>44</td>
+    <td>55</td>
     <td><input type="button" value="削除" class="deleteBtn" /></td>
   </tr>
 </template>
