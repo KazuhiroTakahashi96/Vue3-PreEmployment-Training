@@ -25,9 +25,77 @@
 import { RouterLink } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
+import axios from "axios";
+
+async function fetchGraphQL(
+  operationsDoc: string,
+  operationName: string,
+  variables: object
+) {
+  const result = await fetch("http://localhost:8080/v1/graphql", {
+    method: "POST",
+    body: JSON.stringify({
+      query: operationsDoc,
+      variables: variables,
+      operationName: operationName,
+    }),
+  });
+
+  const res = await axios({
+    url: "http://localhost:8080/v1/graphql",
+    method: "post",
+    data: JSON.stringify({
+      query: operationsDoc,
+      variables: variables,
+      operationName: operationName,
+    }),
+  });
+  console.log(res.data.data);
+
+  return await result.json();
+}
+
+const operationsDoc = `
+  query MyQuery {
+    users {
+      id
+      name
+      password
+      is_admin
+      email
+    }
+  }
+`;
+
+function fetchMyQuery() {
+  return fetchGraphQL(operationsDoc, "MyQuery", {});
+}
+
+async function startFetchMyQuery() {
+  const { errors, data } = await fetchMyQuery();
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
+  }
+
+  // do something great with this precious data
+  console.log(data);
+
+  const { users } = data;
+  console.log(users);
+  for (let user of users) {
+    if (user.name === name.value && user.password === password.value) {
+      console.log(`${user.name} is admin`);
+    } else {
+      console.log(`${user.name} is NOT admin`);
+    }
+  }
+}
 
 const onClick = () => {
   console.log(name.value, password.value);
+  startFetchMyQuery();
 };
 
 // バリデーション処理
