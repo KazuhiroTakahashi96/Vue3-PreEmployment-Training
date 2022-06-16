@@ -21,13 +21,6 @@
   </form>
 </template>
 
-<!-- vee-validateについて
-https://reffect.co.jp/vue/veevaliate4
- -->
-<!-- <script setup>について -->
-<!-- https://zenn.dev/azukiazusa/articles/676d88675e4e74 -->
-<!-- https://tekrog.com/vue3-script-setup/ -->
-
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useField, useForm } from "vee-validate";
