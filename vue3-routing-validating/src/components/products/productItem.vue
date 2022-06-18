@@ -1,6 +1,5 @@
 <template>
   <div class="item">
-    <img src="https://picsum.photos/200" alt="" />
     <p>商品名 {{ props.name }}</p>
     <p>値段 {{ props.price }}円</p>
   </div>
@@ -8,14 +7,13 @@
 
 <script setup lang="ts">
 const props = defineProps({
-  image: String,
   name: String,
-  price: String,
+  price: Number,
 });
 </script>
 
 <style scoped>
 .item {
-  margin: 5px;
+  margin: 10px;
 }
 </style>
