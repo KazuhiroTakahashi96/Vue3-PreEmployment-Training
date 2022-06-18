@@ -87,9 +87,10 @@ async function startFetchMyQuery() {
   for (let user of users) {
     if (user.name === name.value && user.password === password.value) {
       console.log(`${user.name} is admin`);
-    } else {
-      console.log(`${user.name} is NOT admin`);
     }
+    // else {
+    //   console.log(`${user.name} is NOT admin`);
+    // }
   }
 }
 
