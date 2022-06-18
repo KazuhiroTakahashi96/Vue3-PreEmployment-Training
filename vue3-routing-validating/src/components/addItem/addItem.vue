@@ -72,7 +72,7 @@ async function fetchGraphQL(
 }
 
 const operationsDoc = `
-  mutation insertItem($objects: [productitem_insert_input!]) {
+  mutation insertItem($objects: [productitem_insert_input!] = [objects]) {
     insert_productitem(objects: $objects) {
       affected_rows
     }
@@ -92,16 +92,26 @@ const operationsDoc = `
 //   }
 // `;
 
-const queryVariables = {
-  id: addingItem.id,
-  name: addingItem.itemName,
-  price: addingItem.price,
-  stock: addingItem.stock,
-  detail: addingItem.detail,
-};
+// const queryVariables = {
+//   objects: {
+//     id: addingItem.id,
+//     name: addingItem.itemName,
+//     price: addingItem.price,
+//     stock: addingItem.stock,
+//     detail: addingItem.detail,
+//   },
+// };
 
 function executeInsertItem() {
-  return fetchGraphQL(operationsDoc, "insertItem", queryVariables);
+  return fetchGraphQL(operationsDoc, "insertItem", {
+    objects: {
+      id: addingItem.id,
+      name: addingItem.itemName,
+      price: addingItem.price,
+      stock: addingItem.stock,
+      detail: addingItem.detail,
+    },
+  });
 }
 
 async function startExecuteInsertItem() {
