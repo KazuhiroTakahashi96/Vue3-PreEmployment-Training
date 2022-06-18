@@ -1,15 +1,23 @@
 <template>
   <tr>
-    <td>11</td>
-    <td>22</td>
-    <td>33</td>
-    <td>44</td>
-    <td>55</td>
+    <td>{{ props.itemId }}</td>
+    <td>{{ props.itemName }}</td>
+    <td>{{ props.itemPrice }}</td>
+    <td>{{ props.itemDetail }}</td>
+    <td>{{ props.itemStock }}</td>
     <td><input type="button" value="削除" class="deleteBtn" /></td>
   </tr>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+  itemId: Number,
+  itemName: String,
+  itemPrice: Number,
+  itemDetail: String,
+  itemStock: Number,
+});
+</script>
 
 <style scoped>
 .deleteBtn {
