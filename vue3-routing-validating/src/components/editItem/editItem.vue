@@ -12,6 +12,9 @@
 </template>
 
 <script setup lang="ts">
+// 子から親コンポーネントへのイベントの通知用
+const emit = defineEmits(["deleteProductItem"]);
+
 const props = defineProps({
   itemId: Number,
   itemName: String,
@@ -20,6 +23,7 @@ const props = defineProps({
   itemStock: Number,
 });
 
+// Hasuraにリクエストする非同期処理
 async function fetchGraphQL(
   operationsDoc: string,
   operationName: string,
@@ -70,6 +74,11 @@ async function startExecuteInsertItem() {
 
 const deleteItem = () => {
   startExecuteInsertItem();
+
+  setTimeout(() => {
+    // 親コンポーネントへの通知
+    emit("deleteProductItem");
+  }, 100);
 };
 </script>
 

@@ -44,6 +44,9 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 
+// 子から親コンポーネントへのイベントの通知用
+const emit = defineEmits(["addItem"]);
+
 // 初期値（全て空）
 const addingItem = reactive({
   id: "",
@@ -78,19 +81,6 @@ const operationsDoc = `
     }
   }
 `;
-// const operationsDoc = `
-//   mutation insertItem {
-//     insert_productitem(objects: [{
-//     id: $addingItem.id,
-//     name: $addingItem.itemName,
-//     price: $addingItem.price,
-//     stock: $addingItem.stock,
-//     detail: $addingItem.detail
-//     }]) {
-//       affected_rows
-//     }
-//   }
-// `;
 
 // const queryVariables = {
 //   objects: {
@@ -134,6 +124,11 @@ const onSubmit = () => {
   addingItem.price = "";
   addingItem.detail = "";
   addingItem.stock = "";
+
+  setTimeout(() => {
+    // 親コンポーネントへの通知
+    emit("addItem");
+  }, 100);
 };
 </script>
 

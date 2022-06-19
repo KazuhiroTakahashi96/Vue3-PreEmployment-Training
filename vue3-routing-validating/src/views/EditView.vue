@@ -1,5 +1,5 @@
 <template>
-  <addItem />
+  <addItem @addItem="startFetchMyQuery()" />
   <br />
   <br />
   <table>
@@ -19,6 +19,7 @@
       :itemPrice="item.price"
       :itemDetail="item.detail"
       :itemStock="item.stock"
+      @deleteProductItem="startFetchMyQuery()"
     />
   </table>
 </template>
