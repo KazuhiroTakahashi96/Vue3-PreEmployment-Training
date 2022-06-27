@@ -14,9 +14,11 @@
     </div>
 
     <div class="btn">
-      <RouterLink to="/admin">
-        <button type="submit" @click="onClick">ログイン</button>
-      </RouterLink>
+      <button type="submit" @click.prevent="onClick">ログイン</button>
+      <br />
+      <br />
+      <br />
+      <RouterLink to="/admin"> 管理者画面へ→ </RouterLink>
     </div>
   </form>
 </template>
