@@ -14,11 +14,12 @@
     </div>
 
     <div class="btn">
-      <button type="submit" @click.prevent="onClick">ログイン</button>
+      <button type="submit" @click.prevent="onClick()">ログイン</button>
       <br />
       <br />
       <br />
-      <RouterLink to="/admin"> 管理者画面へ→ </RouterLink>
+      <span v-if="isAdmin">{{ name }} 様は管理者です。</span>
+      <RouterLink to="/admin" v-if="isAdmin"> 管理者画面へ→ </RouterLink>
     </div>
   </form>
 </template>
@@ -28,6 +29,9 @@ import { RouterLink } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 import axios from "axios";
+import { ref } from "vue";
+
+const isAdmin = ref(false);
 
 async function fetchGraphQL(
   operationsDoc: string,
@@ -43,34 +47,33 @@ async function fetchGraphQL(
     }),
   });
 
-  const res = await axios({
-    url: "http://localhost:8080/v1/graphql",
-    method: "post",
-    data: JSON.stringify({
-      query: operationsDoc,
-      variables: variables,
-      operationName: operationName,
-    }),
-  });
-  console.log(res.data.data);
+  // const res = await axios({
+  //   url: "http://localhost:8080/v1/graphql",
+  //   method: "post",
+  //   data: JSON.stringify({
+  //     query: operationsDoc,
+  //     variables: variables,
+  //     operationName: operationName,
+  //   }),
+  // });
+  // console.log(res.data.data);
 
   return await result.json();
 }
 
 const operationsDoc = `
-  query MyQuery {
-    users {
-      id
-      name
-      password
+  query MyQuery ($name: String) {
+    users(where: {name: {_eq: $name}}) {
       is_admin
-      email
+      password
     }
   }
 `;
 
 function fetchMyQuery() {
-  return fetchGraphQL(operationsDoc, "MyQuery", {});
+  return fetchGraphQL(operationsDoc, "MyQuery", {
+    name: name.value,
+  });
 }
 
 async function startFetchMyQuery() {
@@ -85,17 +88,15 @@ async function startFetchMyQuery() {
   console.log(data);
 
   const { users } = data;
-  console.log(users);
-  for (let user of users) {
-    if (user.name === name.value && user.password === password.value) {
-      console.log(`${user.name} is admin`);
-    }
-    // else {
-    //   console.log(`${user.name} is NOT admin`);
-    // }
+  console.log(users[0]);
+  if (password.value === users[0].password && users[0].is_admin) {
+    isAdmin.value = true;
   }
+
+  return await users[0];
 }
 
+// ログインボタンを押したら
 const onClick = () => {
   console.log(name.value, password.value);
   startFetchMyQuery();
