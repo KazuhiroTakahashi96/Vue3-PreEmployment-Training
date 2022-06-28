@@ -6,7 +6,13 @@
     <td>{{ props.itemDetail }}</td>
     <td>{{ props.itemStock }}</td>
     <td>
-      <input type="button" value="削除" class="deleteBtn" @click="deleteItem" />
+      <input type="button" value="編集" class="editBtn" @click="editItem" />
+      <input
+        type="button"
+        value="削除"
+        class="deleteBtn"
+        @click="deleteItem()"
+      />
     </td>
   </tr>
 </template>
@@ -23,7 +29,7 @@ const props = defineProps({
   itemStock: Number,
 });
 
-// Hasuraにリクエストする非同期処理
+// Hasuraにリクエストする非同期処理（選択した項目を削除する処理）
 async function fetchGraphQL(
   operationsDoc: string,
   operationName: string,
@@ -72,6 +78,7 @@ async function startExecuteInsertItem() {
   console.log(data);
 }
 
+// 削除ボタンを押すと発動する処理
 const deleteItem = () => {
   startExecuteInsertItem();
 
@@ -80,11 +87,17 @@ const deleteItem = () => {
     emit("deleteProductItem");
   }, 100);
 };
+
+// 編集ボタンを押したら発動する処理
+const editItem = () => {
+  console.log("edit item");
+};
 </script>
 
 <style scoped>
-.deleteBtn {
-  width: 50%;
+.deleteBtn,
+.editBtn {
+  width: 45%;
   border-radius: 10px;
   cursor: pointer;
 }

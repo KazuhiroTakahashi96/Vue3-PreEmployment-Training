@@ -89,8 +89,12 @@ async function startFetchMyQuery() {
 
   const { users } = data;
   console.log(users[0]);
-  if (password.value === users[0].password && users[0].is_admin) {
-    isAdmin.value = true;
+  // 入力したユーザー名がusersテーブル内にあった場合、
+  // そのユーザーのパスワードが、入力したパスワードと同じかどうかチェック
+  if (password.value === users[0].password) {
+    if (users[0].is_admin) {
+      isAdmin.value = true;
+    }
   }
 
   return await users[0];

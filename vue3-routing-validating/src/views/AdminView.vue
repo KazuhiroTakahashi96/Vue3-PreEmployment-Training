@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>This is an Admin page.</div>
     <div>ようこそ、HogeHogeさん</div>
     <br />
     <br />

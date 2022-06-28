@@ -9,7 +9,7 @@
       <th class="price">値段</th>
       <th class="detail">詳細</th>
       <th class="stock">在庫数</th>
-      <th class="delete">削除</th>
+      <th class="delete">編集/削除</th>
     </tr>
     <editItem
       v-for="item in productInfo.info"
