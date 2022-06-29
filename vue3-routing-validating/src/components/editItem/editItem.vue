@@ -14,7 +14,7 @@
     </td>
     <td>
       <input
-        type="text"
+        type="number"
         :placeholder="props.itemPrice"
         v-model="changeItem.itemPrice"
         v-if="!toggleItem"
@@ -36,7 +36,7 @@
     </td>
     <td>
       <input
-        type="text"
+        type="number"
         :placeholder="props.itemStock"
         v-model="changeItem.itemStock"
         v-if="!toggleItem"
@@ -163,7 +163,7 @@ async function updateProductItem(
   operationName: string,
   variables: object
 ) {
-  const result = await fetch("undefined", {
+  const result = await fetch("http://localhost:8080/v1/graphql", {
     method: "POST",
     body: JSON.stringify({
       query: updateDoc,
@@ -176,8 +176,8 @@ async function updateProductItem(
 }
 
 const updateDoc = `
-  mutation update_item ($id: Int, $name: String, $price: Int, $detail: String, $stock: Int) {
-    update_productitem(where: {id: {_eq: $id}}, _set: {name: $name, price: $price, detail: $detail, stock: $stock}) {
+  mutation update_item ($id: Int, $changes: productitem_set_input) {
+    update_productitem(where: {id: {_eq: $id}}, _set:  $changes) {
       affected_rows
     }
   }
@@ -186,10 +186,12 @@ const updateDoc = `
 function executeUpdate_item() {
   return updateProductItem(updateDoc, "update_item", {
     id: props.itemId,
-    name: changeItem.itemName,
-    price: changeItem.itemPrice,
-    detail: changeItem.itemDetail,
-    stock: changeItem.itemStock,
+    changes: {
+      name: changeItem.itemName,
+      price: Number(changeItem.itemPrice),
+      detail: changeItem.itemDetail,
+      stock: Number(changeItem.itemStock),
+    },
   });
 }
 
