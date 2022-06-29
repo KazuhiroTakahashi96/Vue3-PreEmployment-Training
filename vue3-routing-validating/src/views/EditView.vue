@@ -19,7 +19,7 @@
       :itemPrice="item.price"
       :itemDetail="item.detail"
       :itemStock="item.stock"
-      @deleteProductItem="startFetchMyQuery()"
+      @updateProductItem="startFetchMyQuery()"
     />
   </table>
 </template>
